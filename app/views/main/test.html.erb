@@ -1,0 +1,28 @@
+<%= form_with url: "/main/test", method: :post, data: {turbo: false} do |f| %>
+    <table>
+        <tr>
+            <th>
+                ชื่อวิชา
+            </th>
+            <th>
+                คะแนนที่ได้
+            </th>
+        </tr>
+        <% (1..@nCourse).each do |idx| %>
+            </tr>
+                <td>
+                    <%= f.text_field "course[#{idx}][name]", :value => @course ? @course["#{idx}"][:name] : ""%>
+                </td>
+                <td>
+                    <%= f.number_field "course[#{idx}][score]", :value => @course ? @course["#{idx}"][:score] : ""%>
+                </td>
+            <tr>
+        <% end %>
+    </table>
+    <% @errorMsg.each do |msg| %>
+        <%= msg %>
+        <br/>
+    <% end %>
+    <%= f.hidden_field :nCourse, :value => @nCourse %>
+    <%= f.submit "Submit" %>
+<% end %>
