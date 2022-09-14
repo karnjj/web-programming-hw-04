@@ -1,0 +1,25 @@
+<%= form_with url: "/score/edit", method: :put, data: {turbo: false} do |f| %>
+    <table style="width:100%;max-width:320px;border: 1px solid">
+        <tr>
+            <th>
+                ชื่อวิชา
+            </th>
+            <th>
+                คะแนนที่ได้
+            </th>
+        </tr>
+        </tr>
+            <td>
+                <%= f.text_field "newScore[course]", :value => @score.course%>
+            </td>
+            <td>
+                <%= f.number_field "newScore[point]", :value => @score.point%>
+            </td>
+        <tr>
+    </table>
+    <%= f.hidden_field :id, :value => @score.id %>
+    <%= f.submit "Save" %>
+<% end %>
+<%= link_to controller: "score", action: "list" do %>
+    <button>Back</button>
+<% end %>

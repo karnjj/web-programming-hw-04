@@ -39,6 +39,18 @@ class MainController < ApplicationController
             maxName = value[:name]
           end
         end
+        # save to db
+        @course.each do |idx,value|
+          scores = Score.where(course: value[:name])
+          if(scores.length == 0) 
+            Score.create(course: value[:name],point: value[:score].to_i)
+          else
+            scores.each do |s|
+              s.point =  value[:score].to_i
+              s.save
+            end
+          end
+        end
         redirect_to main_result_path(:maxName => maxName,:sumScore => sumScore)
       end
     end

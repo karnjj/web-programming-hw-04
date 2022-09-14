@@ -1,0 +1,35 @@
+<table style="width:100%;max-width:320px;border: 1px solid">
+    <tr>
+        <th>
+            ชื่อวิชา
+        </th>
+        <th>
+            คะแนนที่ได้
+        </th>
+        <th>
+            action
+        </th>
+    </tr>
+    <% @scores.each do |sc| %>
+        </tr>
+            <td>
+                <%= sc.course %>
+            </td>
+            <td>
+                <%= sc.point %>
+            </td>
+            <td>
+                <%= form_with url: "/score/edit", method: :post, data: {turbo: false} do |f| %>
+                    <%= f.hidden_field :id, :value => sc.id %>
+                    <%= f.submit 'Edit'%>
+                <% end %>
+                <%= form_with url: "/score", method: :delete, data: {turbo: false} do |f| %>
+                    <%= f.hidden_field :id, :value => sc.id %>
+                    <%= f.submit 'Delete'%>
+                <% end %>
+            </td>
+        <tr>
+    <% end %>
+</table>
+<h4>ผลรวมของคะแนน <%= @sumPoint %></h4>
+<h4>ชื่อวิชาที่ได้คะแนนมากสุด <%= @maxCourse %></h4>
